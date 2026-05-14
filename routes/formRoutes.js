@@ -51,6 +51,39 @@
 
 // module.exports = router;
 
+// const express = require('express');
+// const router = express.Router();
+// const db = require('../config/db');
+
+// router.get('/submit', (req, res) => {
+//   res.send('API is working');
+// });
+
+// router.post('/submit', async (req, res) => {
+//   try {
+//     const { name, email } = req.body;
+
+//     await db.query(
+//       'INSERT INTO users(name, email) VALUES($1, $2)',
+//       [name, email]
+//     );
+
+//     res.json({
+//       message: 'Form Submitted Successfully',
+//     });
+
+//   } catch (error) {
+//     console.log(error);
+
+//     res.status(500).json({
+//       message: 'Database Error',
+//     });
+//   }
+// });
+
+// module.exports = router;
+
+
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
@@ -63,13 +96,14 @@ router.post('/submit', async (req, res) => {
   try {
     const { name, email } = req.body;
 
-    await db.query(
-      'INSERT INTO users(name, email) VALUES($1, $2)',
+    const result = await db.query(
+      'INSERT INTO users(name, email) VALUES($1, $2) RETURNING *',
       [name, email]
     );
 
     res.json({
       message: 'Form Submitted Successfully',
+      data: result.rows[0]
     });
 
   } catch (error) {
@@ -77,6 +111,7 @@ router.post('/submit', async (req, res) => {
 
     res.status(500).json({
       message: 'Database Error',
+      error: error.message
     });
   }
 });
