@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Node.js + Vercel Form Project
 
 ## Install Dependencies
@@ -32,3 +33,6 @@ CREATE TABLE users (
 2. Import repository into Vercel
 3. Add environment variables
 4. Deploy
+=======
+# node-vercel-form
+>>>>>>> 7ddebe34518fac9faaf4fae077ac6513f5e53018
